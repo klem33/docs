@@ -1,276 +1,276 @@
 [{
         "id": "sidenav.overview",
         "defaultMessage": "Overview",
-        "message": ""
+        "message": "Présentation"
     },
     {
         "id": "sidenav.mina-overview",
         "defaultMessage": "Mina Overview",
-        "message": ""
+        "message": "Présentation de Mina"
     },
     {
         "id": "sidenav.getting-started",
         "defaultMessage": "Getting Started",
-        "message": ""
+        "message": "Pour bien démarrer"
     },
     {
         "id": "sidenav.using-mina",
         "defaultMessage": "Using Mina",
-        "message": ""
+        "message": "Utiliser Mina"
     },
     {
         "id": "sidenav.keypair-generation",
         "defaultMessage": "Keypair Generation",
-        "message": ""
+        "message": "Génération des paires de clés"
     },
     {
         "id": "sidenav.connect-to-network",
         "defaultMessage": "Connect To The Network",
-        "message": ""
+        "message": "Se connecter au réseau"
     },
     {
         "id": "sidenav.sending-a-payment",
         "defaultMessage": "Sending a Payment",
-        "message": ""
+        "message": "Envoi d'un paiement"
     },
     {
         "id": "sidenav.staking-snarking",
         "defaultMessage": "Staking & Snarking",
-        "message": ""
+        "message": "Staking & Snarking"
     },
     {
         "id": "sidenav.cli-reference",
         "defaultMessage": "CLI Reference",
-        "message": ""
+        "message": "Référence CLI "
     },
     {
         "id": "sidenav.advanced",
         "defaultMessage": "Advanced",
-        "message": ""
+        "message": "Avancé"
     },
     {
         "id": "sidenav.archive-node",
         "defaultMessage": "Archive Node",
-        "message": ""
+        "message": "Archiver le Noeud"
     },
     {
         "id": "sidenav.archive-redundancy",
         "defaultMessage": "Archive Redundancy",
-        "message": ""
+        "message": "Archives de redondance"
     },
     {
         "id": "sidenav.data-querying",
         "defaultMessage": "Data Querying",
-        "message": ""
+        "message": "Interrogation des données"
     },
     {
         "id": "sidenav.bp-producer-sidecar",
         "defaultMessage": "Block Producer Sidecar",
-        "message": ""
+        "message": "Sidecar du producteur de blocs"
     },
     {
         "id": "sidenav.client-sdk",
         "defaultMessage": "Client SDK",
-        "message": ""
+        "message": "SDK client"
     },
     {
         "id": "sidenav.devnet",
         "defaultMessage": "Devnet",
-        "message": ""
+        "message": "Devnet"
     },
     {
         "id": "sidenav.foundation-delegation",
         "defaultMessage": "Foundation Delegation",
-        "message": ""
+        "message": "Délégation de la Fondation "
     },
     {
         "id": "sidenav.hard-fork",
         "defaultMessage": "Hard Fork",
-        "message": ""
+        "message": "Hard Fork"
     },
     {
         "id": "sidenav.hot-cold-wallets",
         "defaultMessage": "Hot/Cold Wallets",
-        "message": ""
+        "message": "Wallets chaudes/froides"
     },
     {
         "id": "sidenav.ledger-hardware-wallet",
         "defaultMessage": "Ledger Hardware Wallet",
-        "message": ""
+        "message": "Wallet matériel du Ledger"
     },
     {
         "id": "sidenav.seed-peers",
         "defaultMessage": "Seed Peers",
-        "message": ""
+        "message": "Pairs de départ"
     },
     {
         "id": "sidenav.staking-service-guidelines",
         "defaultMessage": "Staking Service Guidelines",
-        "message": ""
+        "message": "Lignes directrices du stacking"
     },
     {
         "id": "sidenav.developers",
         "defaultMessage": "Developers",
-        "message": ""
+        "message": "Développeurs"
     },
     {
         "id": "sidenav.codebase-overview",
         "defaultMessage": "Codebase Overview",
-        "message": ""
+        "message": "Présentation de la base du code"
     },
     {
         "id": "sidenav.repository-structure",
         "defaultMessage": "Repository Structure",
-        "message": ""
+        "message": "Structure du dépôt"
     },
     {
         "id": "sidenav.BIP44-information",
         "defaultMessage": "BIP44 Information",
-        "message": ""
+        "message": "Informations BIP44"
     },
     {
         "id": "sidenav.code-reviews",
         "defaultMessage": "Code Reviews",
-        "message": ""
+        "message": "Révisions du code"
     },
     {
         "id": "sidenav.style-guide",
         "defaultMessage": "Style Guide",
-        "message": ""
+        "message": "Guide de style"
     },
     {
         "id": "sidenav.sandbox-node",
         "defaultMessage": "Sandbox Node",
-        "message": ""
+        "message": "Nœud bac à sable"
     },
     {
         "id": "sidenav.graphql-api",
         "defaultMessage": "GraphQL API",
-        "message": ""
+        "message": "API GraphQL"
     },
     {
         "id": "sidenav.logging",
         "defaultMessage": "Logging",
-        "message": ""
+        "message": "Enregistrement des logs"
     },
     {
         "id": "sidenav.protocol-architecture",
         "defaultMessage": "Protocol Architecture",
-        "message": ""
+        "message": "Architecture du protocole"
     },
     {
         "id": "sidenav.lifecycle-of-a-payment",
         "defaultMessage": "Lifecycle of a Payment",
-        "message": ""
+        "message": "Cycle de vie d'un paiement"
     },
     {
         "id": "sidenav.block-producers",
         "defaultMessage": "Block Producers",
-        "message": ""
+        "message": "Producteurs de blocs"
     },
     {
         "id": "sidenav.whats-in-a-block",
         "defaultMessage": "What's in a Block",
-        "message": ""
+        "message": "Qu'y a-t-il dans un bloc"
     },
     {
         "id": "sidenav.consensus",
         "defaultMessage": "Consensus",
-        "message": ""
+        "message": "Consensus"
     },
     {
         "id": "sidenav.proof-of-stake",
         "defaultMessage": "Proof of Stake",
-        "message": ""
+        "message": "La preuve d’enjeu"
     },
     {
         "id": "sidenav.snark-workers",
         "defaultMessage": "Snark Workers",
-        "message": ""
+        "message": "Travailleurs Snark"
     },
     {
         "id": "sidenav.scan-state",
         "defaultMessage": "Scan State",
-        "message": ""
+        "message": "L'état d'analyse"
     },
     {
         "id": "sidenav.time-locked-accounts",
         "defaultMessage": "Time-locked Accounts",
-        "message": ""
+        "message": "Comptes verrouillés dans le temps"
     },
     {
         "id": "sidenav.snapps",
         "defaultMessage": "Snapps",
-        "message": ""
+        "message": "Snapps"
     },
     {
         "id": "sidenav.tokens",
         "defaultMessage": "Tokens",
-        "message": ""
+        "message": "Tokens"
     },
     {
         "id": "sidenav.snarks",
         "defaultMessage": "SNARKs",
-        "message": ""
+        "message": "SNARKs"
     },
     {
         "id": "sidenav.getting-starting-using-snarks",
         "defaultMessage": "Getting started using SNARKs",
-        "message": ""
+        "message": "Bien commencer à utiliser les SNARKs"
     },
     {
         "id": "sidenav.which-snark-right-for-me",
         "defaultMessage": "Which SNARK is right for me?",
-        "message": ""
+        "message": "Quel SNARK est fait pour moi ?"
     },
     {
         "id": "sidenav.snarkyjs-crypto-library",
         "defaultMessage": "The snarkyjs-crypto library",
-        "message": ""
+        "message": "La bibliothèque snarkyjs-crypto"
     },
     {
         "id": "sidenav.snarky-universe-library",
         "defaultMessage": "The snarky-universe library",
-        "message": ""
+        "message": "La bibliothèque snarky-universe"
     },
     {
         "id": "sidenav.troubleshooting",
         "defaultMessage": "Troubleshooting",
-        "message": ""
+        "message": "Dépannage"
     },
     {
         "id": "sidenav.glossary",
         "defaultMessage": "Glossary",
-        "message": ""
+        "message": "Glossaire"
     },
     {
         "id": "sidenav.faq",
         "defaultMessage": "FAQ",
-        "message": ""
+        "message": "FAQ"
     },
     {
         "id": "sidenav.exchange-faq",
         "defaultMessage": "Exchange FAQ",
-        "message": ""
+        "message": "FAQ sur l'échange"
     },
     {
         "id": "sidenav.documentation",
         "defaultMessage": "Documentation",
-        "message": ""
+        "message": "Documentation"
     },
     {
         "id": "sidenav.contributing-to-mina",
         "defaultMessage": "Contributing to Mina",
-        "message": ""
+        "message": "Contribuer à Mina"
     },
     {
         "id": "docs.suggest-changes",
         "defaultMessage": "Suggest Changes",
-        "message": ""
+        "message": "Suggérer des modifications"
     },
     {
         "id": "sidenav.mina-documentation",
         "defaultMessage": "Mina Documentation",
-        "message": ""
+        "message": "Documentation Mina"
     }
 ]

@@ -1,0 +1,23 @@
+import Page from "@reason/pages/Docs";
+import DocLink from "@reason/components/DocLink";
+export default Page({ title: "Overview" });
+
+# Vue d'ensemble
+
+C'est ici que vous trouverez toute la documentation pour l'ensemble du processus de mise en route avec Mina. 
+
+## Qu'est-ce que Mina?
+
+Mina est le premier protocole de crypto-monnaie avec une blockchain succincte. Les crypto-monnaies actuelles comme Bitcoin et Ethereum stockent des centaines de gigaoctets de données, et au fil du temps, leurs blockchains ne feront qu'augmenter en taille. Cependant, avec Mina, quelle que soit l'augmentation de l'utilisation, la blockchain reste toujours de la même taille - environ 22kb<Footnote refNumber="1" link="/blog/22kb-sized-blockchain-a-technical-reference" /> (la taille de quelques tweets). Cela signifie que les participants peuvent rapidement synchroniser et vérifier le réseau.
+
+Cette avancée est rendue possible grâce à zk-SNARKs - un type de preuve cryptographique succincte. Chaque fois qu'un nœud Mina produit un nouveau bloc, il génère également une preuve SNARK vérifiant que le bloc était valide. Tous les nœuds peuvent alors stocker la petite preuve, plutôt que toute la chaine. En n'ayant pas à se soucier de la taille des blocs, le protocole Mina permet une blockchain décentralisée à grande échelle.
+
+## Comment fonctionne Mina ?
+
+Comment fonctionne une « blockchain succincte » ? Lisez notre [livre blanc technique] (https://docs.minaprotocol.com/static/pdf/technicalWhitepaper.pdf) pour en savoir plus sur nos avant-propos cryptographiques et la construction succincte de la blockchain utilisée dans Mina .
+
+Consultez notre [livre blanc économique] (https://docs.minaprotocol.com/static/pdf/economicsWhitepaper.pdf) pour en savoir plus sur les rôles au sein de Mina Protocol, la conception incitative et la politique monétaire.
+
+## Essayez Mina
+
+Si vous êtes prêt à installer Mina et à commencer à exécuter un nœud, rendez-vous sur la page <DocLink copy="Pour bien démarrer." url="/getting-started" />
