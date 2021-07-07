@@ -41,7 +41,7 @@ let toStringLanguage = t => {
   switch (t) {
   | English => "English"
   | Russian => "Russian"
-  | French => "French"
+  | French => "Fran\xe7ais"
   };
 };
 
