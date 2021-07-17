@@ -1,60 +1,60 @@
 import Page from "@reason/pages/Docs";
 import DocLink from "@reason/components/DocLink";
-export default Page({ title: "Troubleshooting" });
+export default Page({ title: "Dépannage" });
 
-# Troubleshooting
+# Dépannage
 
-Here are some common problems you might encounter while trying to set up the Mina daemon. If you can't find your issue here please ask for help on [Discord](https://bit.ly/MinaDiscord) or open an issue on [Github](https://github.com/MinaProtocol/mina/issues/new).
+Voici quelques problèmes courants que vous pourriez rencontrer en essayant de configurer le daemon Mina. Si vous ne trouvez pas votre problème ici, veuillez demander de l'aide sur [Discord](https://bit.ly/MinaDiscord) ou ouvrir un ticket sur [Github](https://github.com/MinaProtocol/mina/issues/new).
 
-- [General](#general)
-- [Syncing a node](#syncing-a-node)
-- [Networking](#networking)
-- [Accounts and Transactions](#accounts-and-transactions)
-- [Block producer](#block-producer)
+- [Général](#général)
+- [Synchroniser un nœud](#synchroniser-un-nœud)
+- [Mise en réseau](#mise-en-réseau)
+- [Comptes et Transactions](#comptes-et-transactions)
+- [Producteur de blocs](#producteur-de-blocs)
 - [Snark worker](#snark-worker)
-- [Logging](#logging)
+- [Enregistrement des logs](#enregistrement-des-logs)
 
-## General
+## Général
 
-### My node crashes every few minutes?
+### Mon nœud plante à quelques minutes d'intervalle ?
 
-If the node crashes quickly and repeatably, this is likely a configuration issue such as incorrect permissions on the private key, failing to find peers due to incorrectly passing the peers.txt file, an incorrect password or special characters in the password. The last few lines of the logs should provide more information on the issue.
+Si le nœud se bloque rapidement et de manière répétée, il s'agit probablement d'un problème de configuration tel que des autorisations incorrectes sur la clé privée, ne pas trouver de pairs en raison d'une mauvaise transmission du fichier peers.txt, d'un mot de passe incorrect ou de caractères spéciaux dans le mot de passe. Les dernières lignes des Logs devraient fournir plus d'informations sur le problème.
 
-### I closed my SSH terminal, and the node crashed?
+### J'ai fermé mon terminal SSH et le nœud a planté ? 
 
-If you start the mina daemon in the foreground, once you detach from it, it will shut down (via a SIGINT signal). To run the process in the background so that you may detach, you have many options:
+Si vous démarrez le daemon mina au premier plan, une fois que vous vous en êtes détaché, il s'arrêtera (via un signal SIGINT). Pour exécuter le processus en arrière-plan afin que vous puissiez vous détacher, vous avez plusieurs options :
 
-- Start the daemon with the `-background` flag.
-- Run as a systemd service (see <DocLink copy="the docs" url="/using-mina/connecting#ubuntu-1804--debian-9-1" />).
-- Run with Docker (see <DocLink copy="the docs" url="/using-mina/connecting#docker" />).
-- Run the daemon in a terminal multiplexer such as screen or [tmux](https://icohigh.gitbook.io/mina-node-testnet/english/setting-up-tmux) that you can detach from to keep the process running.
+- Démarrez le daemon avec le drapeau `-background`. 
+- Exécuter en tant que service systemd (voir <DocLink copy="les docs" url="/using-mina/connecting#ubuntu-1804--debian-9-1" />).
+- Exécuter avec Docker (voir <DocLink copy="les docs" url="/using-mina/connecting#docker" />).
+- Exécutez le daemon dans un multiplexeur de terminal tel que screen ou [tmux](https://icohigh.gitbook.io/mina-node-testnet/english/setting-up-tmux) dont vous pouvez vous détacher pour que le processus continue de fonctionner.
 
-Running as a service / via Docker is recommended as they have the advantage of automated restarts if your node crashes.
+L'exécution en tant que service / via Docker est recommandée car elles ont l'avantage de redémarrer automatiquement si votre nœud plante.
 
-### What permissions are required for the keys directory?
+### Quelles autorisations sont requises pour le répertoire des clés ? 
 
-The `keys` directory should have 700 permissions, and the private key file 600. For example, these commands update the permissions when the keys directory is contained within your home directory and your private key file is named `my-wallet`:
+Le répertoire `keys` doit avoir les autorisations 700 et le fichier de clé privée 600. Par exemple, ces commandes mettent à jour les autorisations lorsque le répertoire des clés est contenu dans votre répertoire personnel et que votre fichier de clé privée est nommé `my-wallet` :
 
 ```
 chmod 700 ~/keys
 chmod 600 ~/keys/my-wallet
 ```
 
-### Can I run on a Raspberry Pi / ARM-based device?
+### Puis-je exécuter sur un appareil basé sur Raspberry Pi / ARM ? 
 
-No. Only x86-64 is supported and not ARM.
+Non. Seul x86-64 est pris en charge et non ARM. 
 
-### I have special characters in my password, and it is giving an error?
+### J'ai des caractères spéciaux dans mon mot de passe, et ça donne une erreur ? 
 
-You should use quotes around the password i.e. `"MY_PASSWORD"` and/or you can escape the special characters such as `$` in the password using the `\` character.
+Vous devez utiliser des guillemets autour du mot de passe, c'est-à-dire `"MY_PASSWORD"` et/ou vous pouvez échapper les caractères spéciaux tels que `$` dans le mot de passe en utilisant le caractère `\`. 
 
-### I get a permissions error when running the docker command?
+### J'obtiens une erreur d'autorisations lors de l'exécution de la commande docker ? 
 
-Add the current user to the docker group as per [this article](https://docs.docker.com/engine/install/linux-postinstall/). You could prefix the command with `sudo`, but this is not recommended.
+Ajouter l'utilisateur actuel au groupe docker selon [cet article](https://docs.docker.com/engine/install/linux-postinstall/). Vous pouvez commencer la commande avec `sudo`, mais ce n'est pas recommandé.
 
-### I see monitor.ml.Error "Timed out getting connection from process" on macOS?
+### Je vois monitor.ml.Error "Timed out getting connection from process" sur macOS?
 
-If you're running Mina on macOS and see the following time out error `monitor.ml.Error "Timed out getting connection from process"`, you'll need to add your hostname to `/etc/hosts` by running the following:
+Si vous exécutez Mina sur macOS et voyez l'erreur de délai d'attente suivante  `monitor.ml.Error "Timed out getting connection from process"`, vous devrez ajouter votre nom d'hôte à `/etc/hosts` en exécutant ce qui suit :
 
 - $ `hostname` to get your hostname
 - Open the `/etc/hosts` file and add the mapping:
@@ -71,88 +71,88 @@ If you're running Mina on macOS and see the following time out error `monitor.ml
 This is necessary because sometimes macOS doesn't resolve your hostname to your local IP address.
 ```
 
-### What hardware do I need?
+### De quel matériel ai-je besoin ? 
 
-See the requirements for the current network <DocLink copy="here" url="/getting-started" />. Some lower-tier VPS providers may have an issue producing blocks within the slot time. If you continue to experience missing blocks, you may wish to try on more powerful hardware.
+Voir les exigences pour le réseau actuel <DocLink copy="ici" url="/getting-started" />. Certains fournisseurs de VPS de niveau inférieur peuvent avoir des problèmes pour produire des blocs dans le créneau horaire. Si vous continuez à rencontrer des blocs manquants, vous pouvez essayer un matériel plus puissant. 
 
-### I would like the mina service to start on boot?
+### Je souhaite que le service mina se lance au démarrage ? 
 
-If you use `systemd` to manage the Mina daemon then it will not automatically restart on a reboot of the machine. You can manually run the service via `systemctl --user start mina` or run `systemctl --user enable mina` to have the service automatically start on boot.
+Si vous utilisez `systemd` pour gérer le démon Mina, il ne redémarrera pas automatiquement au redémarrage de la machine. Vous pouvez exécuter manuellement le service via `systemctl --user start mina` ou exécuter `systemctl --user enable mina` pour que le service démarre automatiquement au démarrage. 
 
-### What should I add for CODA_PRIVKEY_PASS?
+### Que dois-je ajouter pour CODA_PRIVKEY_PASS ? 
 
-When you generated a keypair, you created a password. Use the password you created for the value of `CODA_PRIVKEY_PASS`.
+Lorsque vous avez généré une paire de clés, vous avez créé un mot de passe. Utilisez le mot de passe que vous avez créé pour la valeur de `CODA_PRIVKEY_PASS`. 
 
-### I get an error about ~/.mina-config/daemon.json missing?
+### J'obtiens une erreur à propos de ~/.mina-config/daemon.json manquant ? 
 
-This is an optional file to pass [configuration options](https://github.com/MinaProtocol/mina/blob/develop/docs/daemon.md) to the daemon (rather than passing via the command line). The daemon looks for it by default, which results in an error if you do not include it. Just ignore this error (unless you are trying to include it) as it is not fatal, and the daemon will start as per normal.
+Ceci est un fichier facultatif à transmettre [options de configuration](https://github.com/MinaProtocol/mina/blob/develop/docs/daemon.md) configuration au daemon (plutôt que de passer via la ligne de commande). Le daemon le recherche par défaut, ce qui entraîne une erreur si vous ne l'incluez pas. Ignorez simplement cette erreur (sauf si vous essayez de l'inclure) car elle n'est pas fatale et le daemon démarrera normalement. 
 
-### I see messages about prover/verifier being killed periodically
+### Je vois des messages sur le prouveur/vérificateur qui sont tués périodiquement
 
-This is normal, and these processes are currently periodically killed and restarted. Ignore these messages unless they result in a fatal error/crash.
+Ceci est normal et ces processus sont actuellement tués et redémarrés périodiquement. Ignorez ces messages à moins qu'ils n'entraînent une erreur fatale/un plantage.
 
-### I crashed with "Fatal error: out of memory"?
+### J'ai planté avec "Fatal error: out of memory"?
 
-This is a common issue - see this [issue](https://github.com/MinaProtocol/mina/issues/6851) on GitHub and add any relevant information with logs and restart your node.
+C'est un problème courant - voir ce [problème](https://github.com/MinaProtocol/mina/issues/6851) sur GitHub et ajoutez toutes les informations pertinentes avec les Logs et redémarrez votre nœud. 
 
-### Can I provide my password using an environment variable?
+### Puis-je fournir mon mot de passe à l'aide d'une variable d'environnement ? 
 
-Yes. Set the `CODA_PRIVKEY_PASS` environment variable to be your password.
+Oui. Définissez la variable d'environnement `CODA_PRIVKEY_PASS` comme votre mot de passe.
 
-### I am trying to install on Ubuntu 20.04 / Debian 10 and get dependency errors?
+### J'essaie d'installer sur Ubuntu 20.04 / Debian 10 et j'obtiens des erreurs de dépendance ? 
 
-See this [guide on our Discord](https://discordapp.com/channels/484437221055922177/583400552487059546/822269019687354418) to manually resolve the required dependencies. Alternatively, use a supported OS (Ubuntu 18.04/Debian 9) or use Docker.
+Voir ce [guide sur notre Discord](https://discordapp.com/channels/484437221055922177/583400552487059546/822269019687354418) pour résoudre manuellement les dépendances requises. Vous pouvez également utiliser un système d'exploitation pris en charge (Ubuntu 18.04/Debian 9) ou utiliser Docker. 
 
-## Syncing a node
+## Synchroniser un nœud 
 
-### I am stuck at block height of 1 and a max observed block length of 1
+### Je suis bloqué à une hauteur de bloc de 1 et une longueur de bloc maximale observée de 1 
 
-The output of `mina client status` outputs similar to the following:
+La sortie de "mina client status" est similaire à ce qui suit :
 
 ```
 Block height:                    1
 Max observed block length:       1
 ```
 
-This issue was fixed by the release `9652f8ee092ea77e29f5ab49fa0a295e36743e8b`, please ensure you have upgraded. It is normal to see a height of 1 while the daemon initializes. It could take several minutes (20 mins to an hour) before the node progress to the catchup phase.
+Ce problème a été résolu par la version `9652f8ee092ea77e29f5ab49fa0a295e36743e8b`, veuillez vous assurer que vous avez effectué la mise à niveau. Il est normal de voir une hauteur de 1 pendant l'initialisation du daemon. Cela peut prendre plusieurs minutes (20 minutes à une heure) avant que le nœud ne passe à la phase "catchup".
 
-### My "Max observed block length" is 1 but my block height is correct?
+### Mon "Max observed block length" est 1 mais ma hauteur de bloc est correcte?
 
-This issue was fixed by the release `9652f8ee092ea77e29f5ab49fa0a295e36743e8b`, please ensure you have upgraded. After upgrading make sure you let the daemon run (20 mins to an hour), and the error should resolve itself.
+Ce problème a été résolu par la version `9652f8ee092ea77e29f5ab49fa0a295e36743e8b`, veuillez vous assurer que vous avez mis à niveau. Après la mise à niveau, assurez-vous de laisser le daemon s'exécuter (20 minutes à une heure) et l'erreur devrait se résoudre d'elle-même.
 
-### My node is stuck in catchup / the block height does not update
+### Mon nœud est bloqué sur "catchup" / la hauteur du bloc ne se met pas à jour 
 
-When the node is synced, **Block height** should be equal to **Max observed block length**, as seen in the output of `mina client status` and should match the current height of the network, as shown in the screenshot below:
+Lorsque le nœud est synchronisé, **Block height** devrait être égal à **Max observed block length**, comme on le voit dans la sortie de « mina client status » et doit correspondre à la hauteur actuelle du réseau, comme indiqué dans la capture d'écran ci-dessous : 
 
-![Syncing a node](https://i.imgur.com/iWJTYTr.png)
+![Synchroniser un nœud](https://i.imgur.com/iWJTYTr.png)
 
-When starting the node, and the node is in a bootstrap/catchup state, the block height will display 1 or a number that is a few hundred blocks from the current best block length (but much greater than 1). During catchup, the block height will not incrementally update, other than when new blocks are produced and will jump to the correct height when catchup is complete. So be patient; this process can take several hours to complete and does vary depending on the hardware used.
+Lors du démarrage du nœud et que le nœud est dans l'état "bootstrap"/"catchup", la hauteur de bloc affichera 1 ou un nombre qui est à quelques centaines de blocs de la meilleure longueur de bloc actuelle (mais bien supérieure à 1). Pendant la phase de "catchup", la hauteur du bloc ne sera pas mise à jour de manière incrémentielle, sauf lorsque de nouveaux blocs sont produits et sautera à la bonne hauteur une fois la phase de "catchup" terminé. Soyez donc patient ; ce processus peut prendre plusieurs heures et varie en fonction du matériel utilisé. 
 
-### I synced at height 1 / not at the current height of the network?
+### Je suis synchronisé à la hauteur 1 / non synchronisé à la hauteur actuelle du réseau ? 
 
-What matters is that your current blockchain length, as seen in `mina client status`, is equal to the current network height. If your node is reporting it is synced at the wrong height, it should eventually enter the catchup phase to get the node to the correct height. You may occasionally switch between catchup and synced if the network sees any short forks it tries to catch up to.
+Ce qui compte, c'est que la longueur actuelle de votre blockchain, comme on le voit dans `mina client status`, soit égale à la hauteur actuelle du réseau. Si votre nœud signale qu'il est synchronisé à la mauvaise hauteur, il devrait éventuellement entrer dans la phase de "catchup" pour amener le nœud à la bonne hauteur. Vous pouvez parfois basculer entre "catchup" et "synced" si le réseau voit des divergence courtes qu'il essaie de rattraper. 
 
-### Why does my blockchain height jump to 1000+ and then get stuck?
+### Pourquoi ma hauteur de blockchain saute-t-elle de 1000+ et reste-t-elle bloquée ? 
 
-We only need the last `k` (290) blocks of the blockchain to produce blocks. So once bootstrap is completed, the root of the transition frontier (essentially your local store of blocks) should be the current maximum height minus `k` (290). The part of the syncing process that takes significant time is downloading those missing `k` blocks, which is the role of **catchup**. During catchup, you won't see your block height increase (other than new blocks produced on the network) until it jumps to the current height and is synced. This takes time, so leave it running!
+Nous n'avons besoin que des derniers « k » (290) blocs de la blockchain pour produire des blocs. Ainsi, une fois le "bootstrap" terminé, la racine de la frontière de transition (essentiellement votre stockage local de blocs) devrait être la hauteur maximale actuelle moins « k » (290). La partie du processus de synchronisation qui prend beaucoup de temps est le téléchargement des blocs « k » manquants, ce qui est le rôle de **catchup**. Pendant le rattrapage, vous ne verrez pas la hauteur de votre bloc augmenter (autre les nouveaux blocs produits sur le réseau) jusqu'à ce qu'il saute à la hauteur actuelle et soit synchronisé. Cela prend du temps, alors laissez-le fonctionner !
 
-### My sync status is offline?
+### Mon statut de synchronisation est hors ligne ? 
 
-This status indicates that you have not received any messages from peers for the last ~24 minutes. Ensure that you are using the latest peers.txt file. You can add new peers to a running node via this command:
+Cet état indique que vous n'avez reçu aucun message de vos pairs au cours des 24 dernières minutes environ. Assurez-vous que vous utilisez le dernier fichier peers.txt. Vous pouvez ajouter de nouveaux pairs à un nœud en cours d'exécution via cette commande : 
 
 ```
 cat peers.txt | xargs -I % mina advanced add-peers %
 ```
 
-## Networking
+## Mise en réseau
 
-### My hosting provider is warning me: "Abuse message: Netscan detected"
+### Mon hébergeur m'avertit : "Abuse message: Netscan detected"
 
-There is some behavior with our p2p networking module that triggers this warning on some hosting providers (specifically we've heard this happening with Hetzner). To mitigate this configure your firewall to allow traffic from ssh, http, https and deny outgoing traffic to all private ip addresses.
+Il y a un comportement avec notre module de mise en réseau p2p qui déclenche cet avertissement sur certains fournisseurs d'hébergement (en particulier, nous avons entendu cela se produire avec Hetzner). Pour atténuer cela, configurez votre pare-feu pour autoriser le trafic provenant de ssh, http, https et refuser le trafic sortant vers toutes les adresses IP privées. 
 
-Here is an example of this using the [ufw](https://help.ubuntu.com/community/UFW#UFW_-_Uncomplicated_Firewall) firewall tool. Thanks Ducca for sharing these rules and confirming they fix the issues on Hetzner.
+Voici un exemple en utilisant l'outil de pare-feu [ufw](https://help.ubuntu.com/community/UFW#UFW_-_Uncomplicated_Firewall). Merci Ducca d'avoir partagé ces règles et d'avoir confirmé qu'elles résolvent les problèmes sur Hetzner.
 
-Allow SSH, HTTP, HTTPS porst:
+Autoriser les ports SSH, HTTP, HTTPS :
 
 ```
 ufw allow 22
@@ -161,7 +161,7 @@ ufw allow 443
 ufw enable
 ```
 
-Block outgoing private connection:
+Bloquer les connexion privées sortantes : 
 
 ```
 ufw deny out from any to 10.0.0.0/8
@@ -172,49 +172,49 @@ ufw deny out from any to 198.18.0.0/15
 ufw deny out from any to 169.254.0.0/16
 ```
 
-See [#7053](https://github.com/MinaProtocol/mina/issues/7053) for more
+Voir [#7053](https://github.com/MinaProtocol/mina/issues/7053) pour plus de détails
 
-### What ports need to be open?
+### Quels ports doivent être ouverts ?
 
-The only port required to be open for the daemon to communicate with peers is TCP port `8302`.
+Le seul port qui doit être ouvert pour que le daemon puisse communiquer avec les pairs est le port TCP `8302`.
 
-The client port `8301` should **never** be exposed to the internet. There may be outdated references to other ports that were once used before but are no longer required.
+Le port client `8301` ne doit **jamais** être exposé à Internet. Il peut y avoir des références obsolètes à d'autres ports qui étaient autrefois utilisés mais qui ne sont plus nécessaires.
 
-### Node fails with "Failed to find any peers, crashing as this is not a seed node"?
+### Le nœud échoue avec "Failed to find any peers, crashing as this is not a seed node"?
 
-First, ensure that you have downloaded the latest peers file from the email received - the URL does not change, but the list of peers is updated very frequently.
+Tout d'abord, assurez-vous que vous avez téléchargé le dernier fichier de pairs à partir de l'e-mail reçu - l'URL ne change pas, mais la liste des pairs est mise à jour très fréquemment. 
 
-Next, depending on the method you use to start the node, ensure that you are passing the correct path to this file. For example, if using `systemd`, there must be a `peers.txt` file in your home directory.
+Ensuite, selon la méthode que vous utilisez pour démarrer le nœud, assurez-vous que vous transmettez le bon chemin d'accès à ce fichier. Par exemple, si vous utilisez `systemd`, il doit y avoir un fichier `peers.txt` dans votre répertoire personnel. 
 
-This error should have been resolved by a recent update, so ensure you are on the latest release and have the latest peers file.
+Cette erreur aurait dû être résolue par une mise à jour récente, alors assurez-vous que vous utilisez la dernière version et que vous disposez du dernier fichier de pairs. 
 
-### I get an error couldn't determine our IP from the internet?
+### Je reçois l'erreur `couldn't determine our IP from the internet` ? 
 
-If you see `couldn't determine our IP from the internet, use -external-ip` flag, then the daemon failed to determine its own IP from [these service providers](https://github.com/MinaProtocol/mina/blob/056d0203722ddfec1c7ad216846434648cd7af5e/src/app/cli/src/find_ip.ml#L7-L11). Your firewall may be blocking HTTP/S requests, or you have a misconfigured network connection.
+Si vous voyez le drapeau `couldn't determine our IP from the internet, use -external-ip`, alors le daemon n'a pas réussi à déterminer sa propre adresse IP auprès de [ces fournisseurs de services] (https://github.com/MinaProtocol/mina/blob/056d0203722ddfec1c7ad216846434648cd7af5e/src/app/cli/src/find_ip.ml#L7-L11). Votre pare-feu bloque peut-être les requêtes HTTP/S ou votre connexion réseau est mal configurée.
 
-To bypass this, pass in the flag `-external-ip <your-ip-address>` when starting the Mina daemon. To get your external IP address, run `curl ifconfig.me`.
+Pour contourner cela, passez l'indication `-external-ip <your-ip-address>` au démarrage du démon Mina. Pour obtenir votre adresse IP externe, exécutez `curl ifconfig.me`. 
 
-### Do I need to configure port forwarding manually?
+### Dois-je configurer la redirection de port manuellement ? 
 
-The Mina node does its best to configure itself to be able to connect to the outside world without you needing to do any extra work. However, this may fail, depending on your router and network setup. In this case, you may have to manually forward the external-port.
+Le nœud Mina fait de son mieux pour se configurer afin se connecter au monde extérieur sans que vous ayez besoin de faire de travail supplémentaire. Cependant, cela peut échouer, selon votre routeur et la configuration de votre réseau. Dans ce cas, vous devrez peut-être transférer manuellement le port externe. 
 
-A common cause of this is routers not supporting UPnP, a protocol that allows the node to configure the port forwarding automatically. If you experience this type of problem, find your router model and search for `<model> port forwarding` and follow the instructions to forward the ports from your router to your device running the Mina node. You'll need to open the TCP port `8302` by default.
+Une cause courante est que les routeurs ne prennent pas en charge UPnP, un protocole qui permet au nœud de configurer automatiquement la redirection de port. Si vous rencontrez ce type de problème, recherchez votre modèle de routeur et recherchez `<modèle> port forwarding` et suivez les instructions pour transférer les ports de votre routeur vers votre appareil exécutant le nœud Mina. Vous devrez ouvrir le port TCP `8302` par défaut. 
 
-Note: When running Mina in the cloud, you should instead configure security groups for your cloud provider.
+Remarque : lorsque vous exécutez Mina dans le cloud, vous devez plutôt configurer des groupes de sécurité pour votre fournisseur cloud.
 
-### Do I need to allow "Accept incoming connections"
+### Dois-je autoriser "Accept incoming connections" ?
 
-If you see one or more warnings like the below, then choose "Allow":
+Si vous voyez un ou plusieurs avertissements comme celui ci-dessous, choisissez "Allow":
 
 ```
 Do you want the application "mina" to accept incoming network connections?
 ```
 
-## Accounts and Transactions
+## Comptes et Transactions
 
-### What fee should I use to send a transaction / my transaction is stuck as pending?
+### Quels frais dois-je utiliser pour envoyer une transaction / si ma transaction est bloquée comme en attente ? 
 
-Transactions that are included in blocks are prioritized by their transaction fees. If many transactions are pending, then the highest fee transactions will be included first. So, increasing your fees is the best way to ensure that your transaction is included. To view the transaction pool on a running node, you can use the following command (you will need to install `jq,` which is used to format the output of the following command, e.g., `sudo apt install jq`):
+Les transactions incluses dans les blocs sont priorisées en fonction de leurs frais de transaction. Si de nombreuses transactions sont en attente, les transactions avec les frais les plus élevés seront incluses en premier. Ainsi, augmenter vos frais est le meilleur moyen de vous assurer que votre transaction soit incluse. Pour afficher le pool de transactions sur un nœud en cours d'exécution, vous pouvez utiliser la commande suivante (vous devrez installer "jq", qui est utilisé pour formater la sortie de la commande suivante, par exemple, "sudo apt install jq") : 
 
 ```
 mina advanced pooled-user-commands | jq . | grep fee | sort | uniq -c | sort -n
@@ -222,139 +222,139 @@ mina advanced pooled-user-commands | jq . | grep fee | sort | uniq -c | sort -n
       5     "fee": "0.1",
 ```
 
-If there are many transactions in the pool, you may need to increase your fee. For a visual overview of transaction fees, see [here](https://minaexplorer.com/mempool).
+S'il y a beaucoup de transactions dans le pool, vous devrez peut-être augmenter vos frais. Pour un aperçu visuel des frais de transaction, voir [ici] (https://minaexplorer.com/mempool).
 
-If you have a stuck transaction due to a low fee, you will have to wait for it to be included in a block or to be evicted from the transaction pool as there is currently no way to cancel a transaction due to this [known issue](https://github.com/MinaProtocol/mina/issues/6605).
+Si vous avez une transaction bloquée en raison de frais peu élevés, vous devrez attendre qu'elle soit incluse dans un bloc ou qu'elle soit expulsée du pool de transactions car il n'y a actuellement aucun moyen d'annuler une transaction en raison de ce [problème connu] (https://github.com/MinaProtocol/mina/issues/6605).
 
-### How many transactions can be included in a block?
+### Combien de transactions peuvent être incluses dans un bloc ?
 
-On the current network, this is 128, which also includes the coinbase transaction as well as any fee transfers to pay snark workers.
+Sur le réseau actuel, c'est 128, ce qui inclut également la transaction Coinbase ainsi que tous les transferts de frais pour payer les travailleurs snark. 
 
-### Can I cancel a transaction?
+### Puis-je annuler une transaction ? 
 
-Not currently due to [this bug](https://github.com/MinaProtocol/mina/issues/6605).
+Pas actuellement en raison de [ce bug](https://github.com/MinaProtocol/mina/issues/6605).
 
-### I sent a transaction, but it was never included in a block?
+### J'ai envoyé une transaction, mais elle n'a jamais été incluse dans un bloc ? 
 
-See [this answer](#what-fee-should-i-use-to-send-a-transaction--my-transaction-is-stuck-as-pending). The transaction was likely stuck as pending and then eventually evicted from the transaction pool. Try sending again.
+Voir [cette réponse] (#quels-frais-dois-je-utiliser-pour-envoyer-une-transaction--si-ma-transaction-est-bloquée-comme-en-attente-). La transaction a probablement été bloquée comme étant en attente, puis a finalement été expulsée du pool de transactions. Essayez d'envoyer à nouveau. 
 
-### Why is the coinbase 0 / there are no transactions included in a block?
+### Pourquoi le coinbase 0 / il n'y a pas de transactions incluses dans un bloc ? 
 
-In certain circumstances, there is no snark work available to be purchased or is too expensive to be purchased. In this case, it may not be possible to include a coinbase transaction, and so there is no coinbase awarded for the block.
+Dans certaines circonstances, il n'y a pas de travail snark disponible à acheter ou est trop cher pour être acheté. Dans ce cas, il peut ne pas être possible d'inclure une transaction Coinbase, et donc il n'y a pas de Coinbase attribué pour le bloc. 
 
-If transactions are not being included, the transaction fees likely do not cover the cost of the snark work required to be purchased to offset, including the transactions.
+Si les transactions ne sont pas incluses, les frais de transaction ne couvrent probablement pas le coût du travail requis qui doit être acheté pour compenser, y compris les transactions. 
 
-### Does the order of sending transactions matter?
+### L'ordre d'envoi des transactions est-il important ? 
 
-Yes, transactions are processed in order according to the nonce associated with the transaction. So, if you send a transaction that is stuck, with, for example, a low fee, all following transactions will also be stuck regardless of the fees used in the later transactions. Unfortunately, there is no way to currently cancel a transaction due to a known issue, so you have to wait for either the transaction to be included or to be evicted from the transaction pool.
+Oui, les transactions sont traitées dans l'ordre selon le nonce associé à la transaction. Ainsi, si vous envoyez une transaction bloquée, avec, par exemple, des frais peu élevés, toutes les transactions suivantes seront également bloquées quels que soient les frais utilisés dans les transactions ultérieures. Malheureusement, il n'y a actuellement aucun moyen d'annuler une transaction en raison d'un problème connu, vous devez donc attendre que la transaction soit incluse ou qu'elle soit expulsée du pool de transactions. 
 
-### Why does my account say "locked"?
+### Pourquoi mon compte indique-t-il "locked"?
 
-If the output of `mina accounts list` shows your account is locked, this means that you need to unlock it using your private key password in order to use it to send transactions. To unlock, simply use the `mina accounts unlock --public-key` command.
+Si la sortie de la `mina accounts list` indique que votre compte est verrouillé, cela signifie que vous devez le déverrouiller à l'aide de votre mot de passe de clé privée afin de l'utiliser pour envoyer des transactions. Pour déverrouiller, utilisez simplement la commande `mina account unlock --public-key`. 
 
-A block producer does **not** need the account to be unlocked to produce blocks.
+Un producteur de blocs n'a **pas** besoin que le compte soit déverrouillé pour produire des blocs. 
 
-### I requested funds from the faucet, and they never arrived?
+### J'ai demandé des fonds au "robinet"(faucet), et ils ne sont jamais arrivés ? 
 
-Check the status of the faucet [here](https://status.minaprotocol.com/) to see if there are any know issues with the faucet.
+Vérifiez l'état du robinet(faucet) [ici] (https://status.minaprotocol.com/) pour voir s'il y a des problèmes connus avec le robinet(faucet). 
 
-You can also check this [explorer](https://minaexplorer.com/wallet/B62qpVjcU3bxjWdVGiXd7tUGNag3cgjSNWmYuZTpU5Eg8MHPqnHfVeL) to see all pending transactions from the faucet to see if yours is listed or if there have been any recent faucet transactions.
+Vous pouvez également vérifier cet [explorateur] (https://minaexplorer.com/wallet/B62qpVjcU3bxjWdVGiXd7tUGNag3cgjSNWmYuZTpU5Eg8MHPqnHfVeL) pour voir toutes les transactions en attente du robinet(faucet) pour voir si le vôtre est répertorié ou s'il y a eu des transactions récentes du robinet(faucet). 
 
-If you have just started your node and are not synced, any balance sent from the faucet will not be displayed until the node is synced.
+Si vous venez de démarrer votre nœud et que vous n'êtes pas synchronisé, tout solde envoyé depuis le robinet(faucet) ne sera pas affiché tant que le nœud n'est pas synchronisé. 
 
-### What are time-locked accounts / why are some accounts timed and others untimed?
+### Que sont les comptes bloqués dans le temps / pourquoi certains comptes sont-ils chronométrés et d'autres non chronométrés ? 
 
-See the docs <DocLink copy="here" url="/architecture/timelock" />.
+Voir la doc  <DocLink copy="ici" url="/architecture/timelock" />.
 
-### Can I send a payment before I am synced?
+### Puis-je envoyer un paiement avant d'être synchronisé ?
 
-Yes, but only if you have funds already in the ledger. If you requested funds from, e.g., the faucet or another community member, you will need to wait until you are synced so that you have a balance you can use to send.
+Oui, mais seulement si vous avez déjà des fonds dans le Ledger. Si vous avez demandé des fonds, par exemple, au robinet(faucet) ou à un autre membre de la communauté, vous devrez attendre d'être synchronisé afin d'avoir un solde que vous pouvez utiliser pour envoyer. 
 
-### Error: Specified sender is not in the ledger or sent a transaction in transaction pool when sending a transaction
+### Erreur: Specified sender is not in the ledger or sent a transaction in transaction pool when sending a transaction
 
-See [this answer](#can-I-send-a-payment-before-I-am-synced), you will need to wait until you are synced if you do not have an existing balance in the ledger.
+Voir [cette réponse](#puis-je-envoyer-un-paiement-avant-d-être-synchronisé), vous devrez attendre d'être synchronisé si vous n'avez pas de solde existant dans le Ledger. 
 
-### I am running a block producer, but I don't see anything in mina accounts list?
+### Je fais tourner un producteur de blocs, mais je ne vois rien dans la liste des comptes mina ? 
 
-If you started the daemon passing the `block-producer-key` flag, then you still need to import the account to the daemon in order to send a transaction. To do so, use the `mina accounts import -priv-key` command, passing in the location of the private key file.
+Si vous avez démarré le démon en passant le drapeau `block-producer-key`, alors vous devez toujours importer le compte dans le daemon afin d'envoyer une transaction. Pour ce faire, utilisez la commande `mina account import -priv-key`, en passant l'emplacement du fichier de clé privée. 
 
-## Block producer
+## Producteur de blocs
 
-### How do I run a block producer?
+### Comment exécuter un producteur de blocs ?
 
-The methods to start a node <DocLink copy="in the documentation" url="/using-mina/connecting" /> will run a block producer by default.
+Les méthodes pour démarrer un nœud <DocLink copy="dans la documentation " url="/using-mina/connecting" /> exécutera un producteur de blocs par défaut.
 
-### How do I know if I am running a block producer
+### Comment savoir si j'exécute un producteur de blocs ?
 
-To check the status of your block producer, run `mina client status` and look for the lines **Block producers running**. You should see a value of 1 and also your public key.
+Pour vérifier le statut de votre producteur de blocs, exécutez `mina client status` et recherchez les lignes **Block producteurs running**. Vous devriez voir une valeur de 1 ainsi que votre clé publique. 
 
-![Running a block producer](https://i.imgur.com/IsXZcXN.png)
+![Exécution d'un producteur de blocs](https://i.imgur.com/IsXZcXN.png)
 
-The line **Next block will be produced in** lets you know the next time you have won a slot to produce a block. If you have not won any further blocks in the epoch, a message "None this epoch..." will be displayed and will only update once a new epoch starts.
+La ligne **Next block will be produced in** vous permet de savoir la prochaine fois que vous avez gagné un créneau pour produire un bloc. Si vous n'avez pas gagné de créneau dans l'époque, un message "None this epoch..." s'affichera et ne sera mis à jour lorque qu'une nouvelle époque commencera. 
 
-### How can I increase my chance of winning a block?
+### Comment augmenter mes chances de gagner un bloc ?
 
-The chance of winning a block is determined by a Verifiable Random Function (VRF), with the chance of winning a block being proportional to your stake. The VRF will always return the same result no matter how many times it is run, so there is no way of improving your chance of winning a block. Other than your staking balance, it is down to luck.
+La chance de gagner un bloc est déterminée par une fonction aléatoire vérifiable (VRF), la chance de gagner un bloc étant proportionnelle à votre mise. Le VRF renverra toujours le même résultat quel que soit le nombre de fois qu'il est exécuté, il n'y a donc aucun moyen d'améliorer vos chances de gagner un bloc. Autre que votre solde de mise, c'est une question de chance.
 
-The stake associated with your public key is determined in advance at the start of an epoch. There is a delay in it being considered, so receiving funds, block rewards, delegating other funds, and snark worker rewards will **not** improve your chance of winning a block in this epoch as these funds will not be considered in the staking ledger for at least another full epoch (~2 weeks).
+L'enjeu associé à votre clé publique est déterminé à l'avance au début d'une époque. Il y a un retard pour que cela soit considéré, donc recevoir des fonds, des récompenses en bloc, déléguer d'autres fonds et des récompenses pour les travailleurs snark n'améliorera **pas** vos chances de gagner un bloc à cette époque car ces fonds ne seront pas pris en compte dans le jalonnement du Ledger pendant au moins une autre époque complète (~ 2 semaines). 
 
-### Why was my block orphaned / why did I not get a block reward?
+### Pourquoi mon bloc est-il devenu orphelin / pourquoi n'ai-je pas reçu de récompense de bloc ? 
 
-There can be more than one block producer per slot due to the way block producers are selected. So if two (or more) blocks are produced for the same slot, it will cause a short fork, and only one will be chosen - the winner in this instance is random based on the VRF output for each block producer. If you consistently see orphaned blocks, then you may be producing blocks slowly, and so other block producers may not see your block before building atop the current longest chain.
+Il peut y avoir plus d'un producteur de blocs par créneau en raison de la façon dont les producteurs de blocs sont sélectionnés. Donc si deux (ou plus) blocs sont produits pour le même slot, cela provoquera une bifurcation courte, et un seul sera choisi - le gagnant dans ce cas est aléatoire en fonction de la sortie VRF pour chaque producteur de bloc. Si vous voyez constamment des blocs orphelins, alors vous produisez des blocs lentement, et ainsi d'autres producteurs de blocs peuvent ne pas voir votre bloc avant de construire au sommet de la chaîne la plus longue actuelle.
 
-It is also possible to produce a block in catchup, and this block will also be quickly orphaned as it is not building on the correct height.
+Il est également possible de produire un bloc en "catchup", et ce bloc sera également rapidement considéré orphelin car il ne construit pas sur la bonne hauteur. 
 
-### I didn't produce a block / I missed a slot?
+### Je n'ai pas produit de bloc / J'ai raté un créneau ? 
 
-There are a few reasons why you could miss a slot / not successfully produce a block, for example, the node restarting and being in bootstrap at the time of producing a slot.
+Il y a plusieurs raisons pour lesquelles vous pourriez manquer un slot / ne pas réussir à produire un bloc, par exemple, le nœud redémarrant et étant en bootstrap au moment de produire un slot. 
 
-Also, you must produce a block within the slot time (3 mins). If you are on less powerful hardware or the daemon is competing for resources, it may not produce the block in time. In this instance, you should find in your logs:
+De plus, vous devez produire un bloc dans le temps imparti (3 minutes). Si vous utilisez un matériel moins puissant ou si le daemon est en compétition pour les ressources, il se peut qu'il ne produise pas le bloc à temps. Dans ce cas, vous devriez trouver dans vos logs : 
 
 `Internally generated block $state_hash cannot be rebroadcast because it's not a valid time to do so ($timing)`
 
-It is not recommended to run a snark worker on the same machine at the same time you are producing a block as the snark worker is resource-intensive and may lead to the block not being produced in time. You can disable the snark worker during block production by, for example, using the [snark stopper script](https://github.com/c29r3/mina-snark-stopper).
+Il n'est pas recommandé d'exécuter un snark worker sur la même machine en même temps que vous produisez un bloc, car le snark worker est gourmand en ressources et peut conduire à ce que le bloc ne soit pas produit à temps. Vous pouvez désactiver le travailleur snark pendant la production de blocs en utilisant, par exemple, le [script snark stopper] (https://github.com/c29r3/mina-snark-stopper).
 
-### Why is the block rate so low / how often should there be a block?
+### Pourquoi le taux de production de block est-il si bas / à quelle fréquence doit-on attendre un bloc ? 
 
-A slot on the current network is every 3 mins, though not all slots should have a block produced, so on average, we would expect a block every 4 mins. However, not all the stake is online and active in producing blocks, and so not all slots will have a block, and sometimes there can be long delays between blocks. As more of the stake is online and staking, this situation improves.
+Un slot sur le réseau actuel est toutes les 3 minutes, bien que tous les slots ne devraient pas avoir un bloc produit, donc en moyenne, nous nous attendrions à un bloc toutes les 4 minutes. Cependant, tous les enjeux ne sont pas en ligne et actifs dans la production de blocs, et donc toutes les slots n'auront pas de bloc, et parfois il peut y avoir de longs délais entre les blocs. Au fur et à mesure que l'enjeux est en ligne et en mise, cette situation s'améliore. 
 
-### Why does O(1) Labs win most of the blocks?
+### Pourquoi O(1) Labs remporte-t-il la plupart des blocs ? 
 
-To keep the network stable, O(1) Labs has 30% of the stake, so has a much greater probability of winning a slot and producing a block. Users who were given a balance of 66,000 mina have about a 0.1% chance of winning any particular slot, so should expect a block every couple of days, but luck plays a major factor in how often you will win a block.
+Pour maintenir la stabilité du réseau, O(1) Labs détient 30% de la participation, donc a une probabilité beaucoup plus grande de gagner un slot et de produire un bloc. Les utilisateurs qui ont reçu un solde de 66 000 mina ont environ 0,1% de chances de gagner un slot, ils doivent donc s'attendre à un bloc tous les deux jours, mais la chance joue un rôle majeur dans la fréquence à laquelle vous gagnerez un bloc. 
 
-### How do I know if I won a block or a transaction went through?
+### Comment savoir si j'ai gagné un bloc ou si une transaction s'est déroulée ? 
 
-The easiest way is to check a [block explorer](https://minaexplorer.com/). You can also get this information for recent blocks via the [GraphQL API](https://minaprotocol.com/docs/developers/graphql-api).
+Le moyen le plus simple est de vérifier un [explorateur de blocs](https://minaexplorer.com/). Vous pouvez également obtenir ces informations pour les blocs récents via l'[API GraphQL](https://minaprotocol.com/docs/developers/graphql-api).
 
-### Why do I have a message of "No blocks won this this epoch"?
+### Pourquoi ai-je le message "No blocks won this this epoch"?
 
-See [this answer](#how-can-I-increase-my-chance-of-winning-a-block).
+Voir [cette réponse](#comment-augmenter-mes-chances-de-gagner-un-bloc-).
 
 ## Snark worker
 
-### My snark work is not getting bought / what fee should I use for a snark worker?
+### Mon travail snark n'est pas acheté / quels frais dois-je utiliser pour un travailleur snark ? 
 
-If you are running a snark worker and not seeing any work being included in blocks, then likely others are producing cheaper snark work. Multiple snark workers are all competing for the same snark work, with only the lowest fee for each being included in the snark pool to be bought by block producers.
+Si vous exécutez un travailleur snark et que vous ne voyez aucun travail inclus dans les blocs, il est probable que d'autres produisent un travail snark moins cher. Plusieurs travailleurs de snark sont tous en compétition pour le même travail de snark, seuls les frais les plus bas pour chacun étant inclus dans le pool de snark à acheter par les producteurs de blocs.
 
-Sometimes high fees will be included in blocks, and this is a function of how snark workers select which work to complete and which work is required to be purchased by the block producer.
+Parfois, des frais élevés seront inclus dans les blocs, et cela dépend de la façon dont les travailleurs snark sélectionnent le travail à terminer et celui qui doit être acheté par le producteur de blocs. 
 
-By default, the work selection for a snark worker is random. You can change this by adding the `-work-selection seq` flag to the `mina daemon` command, which will work on jobs in the order required to be included from the scan state and will likely result in your snarks being included without a potentially lengthy delay.
+Par défaut, la sélection de travail pour un travailleur snark est aléatoire. Vous pouvez changer cela en ajoutant le drapeau `-work-selection seq` à la commande `mina daemon`, qui fonctionnera sur les travaux dans l'ordre requis pour être inclus à partir de l'état d'analyse et entraînera probablement l'inclusion de vos snarks sans délai potentiellement long.
 
-For choosing fees, you can look at historical blocks to determine prices that have been bought, or look at the table listed [here](https://minaexplorer.com/snark-challenge).
+Pour choisir les frais, vous pouvez consulter les blocs historiques pour déterminer les prix qui ont été achetés, ou consulter le tableau répertorié [ici](https://minaexplorer.com/snark-challenge).
 
-### How can I disable the snark worker?
+### Comment puis-je désactiver le travailleur snark? 
 
-Run `mina client set-snark-worker` to disable the snark worker. To enable again, pass your public key `mina client set-snark-worker -address <YOUR_PUBLIC_KEY>`.
+Exécutez `mina client set-snark-worker` pour désactiver le travailleur snark. Pour l'activer à nouveau, transmettez votre clé publique `mina client set-snark-worker -address <YOUR_PUBLIC_KEY>`. 
 
-### Can I run a snark worker and block producer on the same machine?
+### Puis-je exécuter un travailleur snark et un producteur de blocs sur la même machine ? 
 
-Yes, you can, but you should stop the snark worker during block production so as not to compete for resources and miss producing a block. Snark workers also consume more resources in general. See the [snark stopper script](https://github.com/c29r3/mina-snark-stopper) to help in automating this.
+Oui, vous pouvez, mais vous devez arrêter le travailleur snark pendant la production de blocs afin de ne pas rivaliser pour les ressources et manquer la production d'un bloc. Les travailleurs Snark consomment également plus de ressources en général. Voir le [snark stopper script](https://github.com/c29r3/mina-snark-stopper) pour aider à automatiser cela.
 
-## Logging
+## Enregistrement des logs
 
-### I see weird messages/errors in the logs?
+### Je vois des messages/erreurs étranges dans les logs ? 
 
-The logs are noisy and often contain "scary" looking messages such as failure to connect etc. As a general rule, if the message is not fatal and the node does not crash, it is likely nothing to be worried about. The below messages are all considered "normal":
+Les Logs sont bruyants et contiennent souvent des messages "effrayants" tels que l'échec de la connexion, etc. En règle générale, si le message n'est pas fatal et que le nœud ne plante pas, il n'y a probablement pas de quoi s'inquiéter. Les messages ci-dessous sont tous considérés comme "normaux" :
 
 ```
 "RPC #841 failed: \"internal RPC error error: unknown stream_idx\""
@@ -367,7 +367,7 @@ The logs are noisy and often contain "scary" looking messages such as failure to
 }
 ```
 
-### How can I get my logs running as a service?
+### Comment puis-je voir mes Logs en tant que service ? 
 
 `journalctl --user -u mina -n 1000 -f`
 
@@ -375,16 +375,16 @@ The logs are noisy and often contain "scary" looking messages such as failure to
 
 `docker logs --follow mina`
 
-### How do I get my logs running the daemon manually?
+### Comment faire pour voir mes Logs en exécutent Docker ? 
 
 `tail -f ~/.mina-config/mina.log`
 
-### How many logs are kept / where are the logs located?
+### Combien de Logs sont conservés / où se trouvent les Logs ? 
 
-The `~/.mina-config` directory contains the Mina logs. This directory contains the following:
+Le répertoire `~/.mina-config` contient les journaux Mina. Ce répertoire contient les éléments suivants : 
 
-- `mina.log` - This file contains the latest logs of the daemon. Each log file is limited to 10 MiB in size and rotates through 50 log files. Rotated log files are named `mina.log.x` from `mina.log.0` to `mina.log.50`.
-- `mina-best-tip.log` - This is used to write the best tip logs to make it easier to collect the required logs from nodes to determine the state for a hard fork. Each file is limited to 5 MiB and rotates through a maximum of 5 files from` mina-best-tip.log.0` to `mina-best-tip.log.5`.
-- `mina-prover.log` - This logs memory usage and batch size of the prover and is limited to 128 MiB and rotates via a single log file.
-- `mina-verifier.log` - This logs memory usage and batch size of the verifier and is limited to 128 MiB and rotates via a single log file.
-- `mina.version` - This file contains the Git SHA of the running daemon.
+- `mina.log` - Ce fichier contient les derniers journaux du démon. Chaque fichier journal est limité à 10 Mio et fait l'objet d'une rotation de 50 fichiers logs. Les fichiers logs pivotés sont nommés `mina.log.x` de `mina.log.0` à `mina.log.50`. 
+- `mina-best-tip.log` - Celui-ci est utilisé pour écrire les meilleurs Logs pour faciliter la collecte des Logs requis à partir des nœuds afin de déterminer l'état d'un hard fork. Chaque fichier est limité à 5 Mio et pivotent à travers un maximum de 5 fichiers de « mina-best-tip.log.0 » à « mina-best-tip.log.5 ». 
+- `mina-prover.log` - Ce Log enregistre l'utilisation de la mémoire et la taille du lot du prouveur, il est limité à 128 Mio et tourne via un seul fichier log. 
+- `mina-verifier.log` - Ce Log enregistre l'utilisation de la mémoire et la taille du lot du vérificateur, il est limité à 128 Mio et tourne via un seul fichier log. 
+- `mina.version` - Ce fichier contient le Git SHA du daemon en cours d'exécution.

@@ -62,7 +62,7 @@ sudo apt-get update
 sudo apt-get install -y curl unzip mina-mainnet=1.1.5-a42bdee
 ```
 
-Vérifiez que le programme fantôme est correctement installé en exécutant `mina version`. La sortie doit indiquer `Commit a42bdeef6b0c15ee34616e4df76c882b0c5c7c2a on branch master`. 
+Vérifiez que "daemon mina" est correctement installé en exécutant `mina version`. La sortie doit indiquer `Commit a42bdeef6b0c15ee34616e4df76c882b0c5c7c2a on branch master`. 
 
 ### Windows
 
@@ -86,7 +86,7 @@ Si vous utilisez une autre distribution Linux ou une version de macOS, vous pouv
 
 ## Configurer la redirection des ports et des pare-feux
 
-Si vous utilisez un pare-feu, vous devez autoriser le trafic sur le port TCP 8302. De plus, à moins que l'indicateur `-external-ip YOUR_IP` ne soit fourni, le programme fantôme utilisera HTTPS (443) et HTTP (80) pour essayer de déterminer sa propre adresse IP. 
+Si vous utilisez un pare-feu, vous devez autoriser le trafic sur le port TCP 8302. De plus, à moins que l'indicateur `-external-ip YOUR_IP` ne soit fourni, le "daemon mina" utilisera HTTPS (443) et HTTP (80) pour essayer de déterminer sa propre adresse IP. 
 
 Vous devrez peut-être configurer la redirection de port de votre routeur pour autoriser le trafic entrant vers les ports suivants via votre adresse IP **externe**. 
 
